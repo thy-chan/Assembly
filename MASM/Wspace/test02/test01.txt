@@ -1,0 +1,14 @@
+assume cs:codesg
+codesg segment
+        mov ax,2000h		//将2000h存到普通寄存器ax中	ax=2000	bx=0000	ip=0003
+        mov ss,ax		//将ax中的内容存到ss中		ss=2000 ax=2000 bx=0000 sp=0000
+        mov sp,10h		//将栈顶单元的偏移地址设置为10h，ss:sp指向栈顶单元	sp=0010	ax=2000 bx=0000 ip=0008
+        add sp,4		//将栈顶单元的偏移地址sp+4	sp=0014 ax=2000 bx=0000 ip=000b
+        push ax			//将ax中的内容入栈		ax=2000 bx=0000 ip=000c sp=0012
+        push bx			//将bx中的内容入栈		ax=2000 bx=0000 ip=000d sp=0010
+        pop ax			//将栈中内容出栈到ax中（由于出栈的顺序和入栈的顺序相反）ax=0000 bx=0000 ip=000e sp=0012
+        pop bx			//将栈中内容出栈到bx中		ax=2000 bx=0000 ip=000f sp=0014
+        mov ax,4c00h
+        int 21h			//中断
+codesg ends
+end
